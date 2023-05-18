@@ -1,0 +1,51 @@
+{
+  "intents": [
+    {
+      "tag": "greeting",
+      "patterns": [
+        "hi",
+        "hey",
+        "what is up?",
+        "hello world",
+        "Hey how are you doing?",
+        "good day!"
+      ],
+      "responses": [
+        "Hey sir!",
+        "Hello, what can I do for you?"
+      ]
+    },
+    {
+      "tag": "neuralnine",
+      "patterns": [
+        "what is NeuralNine",
+        "who is NeuralNine",
+        "tell me about NeuralNine",
+        "what is Neural Nine"
+      ],
+      "responses": [
+        "NeuralNine is a YouTube Channel and an online brand which focuses on programming and machine learning."
+      ]
+    },
+    {
+      "tag": "name",
+      "patterns": [
+        "what is your name?",
+        "what should I call you?"
+      ],
+      "responses": [
+        "My name is Yike!"
+      ]
+    },
+    {
+      "tag": "file",
+      "patterns": [
+        "create file",
+        "create new file"
+      ],
+      "responses": [
+        "I have created a new file."
+      ]
+    }
+  ]
+}
