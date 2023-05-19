@@ -60,7 +60,25 @@ def learn_word(word):
     }
 
     talk(f"Great! I have learned about {word}")
+def load_dictionary_from_csv(filename):
+    with open(filename, 'r') as file:
+        reader = csv.reader(file)
+        next(reader)  # Skip the header row if present
+        for row in reader:
+            word = row[0]
+            definition = row[1]
+            pronunciation = row[2]
+            synonyms = row[3]
+            antonyms = row[4]
 
+            # Store word information in the dictionary
+            word_info[word] = {
+                'definition': definition,
+                'pronunciation': pronunciation,
+                'synonyms': synonyms,
+                'antonyms': antonyms
+            }
+            
 def play_jarvis():
     instruction = input_instruction()
     print(instruction)
@@ -108,16 +126,40 @@ def play_jarvis():
         response = input_instruction()
     if 'yes' in response:
         learn_word(word)
+    
+    
+    elif 'example' in instruction:
+        word = instruction.replace('example', '').strip()
+        if word in word_info:
+            examples = word_info[word]['examples']
+            if examples:
+                talk(f"Here are some examples of using the word '{word}':")
+                for example in examples:
+                    talk(f"- {example}")
+            else:
+                talk(f"I don't have any examples for the word '{word}'. Would you like to teach me?")
+                response = input_instruction()
+                if 'yes' in response:
+                    learn_word(word)
+        else:
+            talk(f"I don't know the word '{word}'. Would you like to teach me?")
+            response = input_instruction()
+            if 'yes' in response:
+                learn_word(word)
+
+    
+    
+    
     elif 'synonym' in instruction:
         word = instruction.replace('synonym', '').strip()
-    if word in word_info:
-        synonyms = word_info[word]['synonyms']
-        talk(f"The synonyms of {word} are: {synonyms}")
-    else:
-        talk(f"I don't know the synonyms of {word}. Would you like to teach me?")
-        response = input_instruction()
-    if 'yes' in response:
-        learn_word(word)
+        if word in word_info:
+            synonyms = word_info[word]['synonyms']
+            talk(f"The synonyms of {word} are: {synonyms}")
+        else:
+             talk(f"I don't know the synonyms of {word}. Would you like to teach me?")
+             response = input_instruction()
+             if 'yes' in response:
+                learn_word(word)
 
     elif 'antonym' in instruction:
         word = instruction.replace('antonym', '').strip()
@@ -133,5 +175,6 @@ def play_jarvis():
     else:
          talk('Please repeat')
 play_jarvis()
+load_dictionary_from_csv('dictionary.csv')
 
 
